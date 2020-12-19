@@ -56,7 +56,7 @@ int main(int argc,char *argv[])
         string word2;
         string word3;
         string word4;
-        cout<<"how many password";
+        cout<<"how many email";
         cin>>numberOfemail;
 
         for(int j=0; j<numberOfemail;j++)
