@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1608862722 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\main.cpp
+	<iostream>
+	<list>
+	<fstream>
+	<cstdlib>
+	<vector>
+	<time.h>
+	<ctime>
+	<cctype>
+	<cstring>
+	<cstdio>
+	<string>
+
+1608864978 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\email.cpp
+	<iostream>
+	<list>
+	<fstream>
+	<cstdlib>
+	<vector>
+	<time.h>
+	<ctime>
+	<cctype>
+	<cstring>
+	<cstdio>
+	<string>
+
+1608786873 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\lab 4\main.cpp
+	<iostream>
+	<vector>
+
+1608829670 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\priority queue.cpp
+	<iostream>
+	<vector>
+
