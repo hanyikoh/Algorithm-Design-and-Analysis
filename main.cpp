@@ -23,12 +23,7 @@ int main()
     //vectEmail.push_back("bvf");
     //vectEmail.push_back("red");
 
-    vector<string> vectEmail = generateEmail();
-
-    for(int t=0;t<vectEmail.size();++t){
-        cout<<vectEmail.at(t) << "\n";
-    }
-
+   vector<string> vectEmail = generateEmail();
    priorityQueue(vectEmail);
     return 0;
 }

@@ -53,6 +53,7 @@ vector <string> generateEmail()
         int s2=4;
         int s3=6;
         srand(time(0)); //random seed
+
         string word1;
         string word2;
         string word3;
@@ -99,5 +100,7 @@ vector <string> generateEmail()
             word4="";
       };
     //}
+
+
     return emailVect;
 }

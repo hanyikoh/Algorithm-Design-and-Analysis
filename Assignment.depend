@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1608862722 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\main.cpp
+1609059445 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\main.cpp
 	<iostream>
 	<list>
 	<fstream>
@@ -12,7 +12,7 @@
 	<cstdio>
 	<string>
 
-1608864978 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\email.cpp
+1609062349 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\email.cpp
 	<iostream>
 	<list>
 	<fstream>
@@ -29,7 +29,9 @@
 	<iostream>
 	<vector>
 
-1608829670 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\priority queue.cpp
+1609062732 source:d:\academic\second year 3rd sem\algorithm design\assignment\algorithm-design-and-analysis\assignment\priority queue.cpp
 	<iostream>
 	<vector>
+	<chrono>
+	<cstdlib>
 
