@@ -1,18 +1,21 @@
 #include <iostream>
-#include <list>
-#include <fstream>
-#include <cstdlib>
-#include <vector>
+#include<list>
+#include<fstream>
+#include<cstdlib>
+#include<vector>
 #include <time.h>
 #include <ctime>
-#include <cctype>
-#include <cstring>
-#include <cstdio>
-#include <string>
-
+#include<cctype>
+#include<cstring>
+#include<cstdio>
+#include <fstream>
 using namespace std;
 
 
+/* A-Z
+   a-z
+   1-0
+*/
 static const char pool[] =
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "abcdefghijklmnopqrstuvwxyz"
@@ -24,12 +27,10 @@ static const char pool2[] =
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "abcdefghijklmnopqrstuvwxyz"
 ;
-/* A-Z
-   a-z
-   1-0
-*/
+
 int poolSize = sizeof(pool)-1;
 int poolSize2 = sizeof(pool2)-1;
+
 //randomize the word
 char getRandomword()
 {
@@ -40,20 +41,19 @@ char getRandomChar()
 {
  return pool[rand() %poolSize];
 }
-vector <string> emailVect;
-//int main(int argc,char *argv[])
-vector <string> generateEmail()
-{
 
-   // while(true)
-   // {
+int main(int argc,char *argv[])
+{
+    while(true)
+    {
         string email;
         int numberOfemail;
         int s1=5;
         int s2=4;
         int s3=6;
         srand(time(0)); //random seed
-
+        ofstream myfile;
+        myfile.open ("50000.txt");
         string word1;
         string word2;
         string word3;
@@ -95,12 +95,17 @@ vector <string> generateEmail()
 
 
             email=email+word4;
-            emailVect.push_back(email);
+
+            cout<<email<<endl;
             //to prevent overlap
             word4="";
-      };
-    //}
+
+            myfile <<email;
+            myfile<< endl;
 
 
-    return emailVect;
-}
+
+    }myfile.close();
+            return 0;
+
+}}
