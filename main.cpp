@@ -9,21 +9,71 @@
 #include <cstring>
 #include <cstdio>
 #include <string>
+#include "email.cpp"
+#include "Priority Queue.cpp"
 
 using namespace std;
 
-
-vector <string> generateEmail();
+void generateEmail();
 void priorityQueue(vector<string>);
 
 int main()
 {
-    //vectEmail.push_back("abc");
-    //vectEmail.push_back("cds");
-    //vectEmail.push_back("bvf");
-    //vectEmail.push_back("red");
+    vector<string> vectEmail100;
+    vector<string> vectEmail100000;
+    vector<string> vectEmail500000;
+    generateEmail();
 
-   vector<string> vectEmail = generateEmail();
-   priorityQueue(vectEmail);
+    string line;
+    ifstream myfile1("email_100.txt"); //opening the file.
+    if (myfile1.is_open())             //if the file is open
+    {
+        while (!myfile1.eof()) //while the end of file is NOT reached
+        {
+            getline(myfile1, line);       //get one line from the file
+            vectEmail100.push_back(line); //output loop statement
+        }
+        myfile1.close(); //closing the file
+    }
+    else
+        cout << "Unable to open file";
+    myfile1.close();
+    myfile1.open("email_100000.txt"); //opening the file.
+    if (myfile1.is_open())            //if the file is open
+    {
+        while (!myfile1.eof()) //while the end of file is NOT reached
+        {
+            getline(myfile1, line);          //get one line from the file
+            vectEmail100000.push_back(line); //output loop statement
+        }
+        myfile1.close(); //closing the file
+    }
+    else
+        cout << "Unable to open file";
+
+    myfile1.close();
+
+    myfile1.open("email_500000.txt"); //opening the file.
+    if (myfile1.is_open())            //if the file is open
+    {
+        while (!myfile1.eof()) //while the end of file is NOT reached
+        {
+            getline(myfile1, line);          //get one line from the file
+            vectEmail500000.push_back(line); //output loop statement
+        }
+        myfile1.close(); //closing the file
+    }
+    else
+        cout << "Unable to open file";
+    myfile1.close();
+    vectEmail100.pop_back();
+    vectEmail100000.pop_back();
+    vectEmail500000.pop_back();
+
+    priorityQueue(vectEmail100);
+    priorityQueue(vectEmail100000);
+    priorityQueue(vectEmail500000);
+
+
     return 0;
 }
