@@ -36,7 +36,7 @@ void search(string data)
     if (emailFound)
         emailFound = false;
     else
-        cout << "Email not found!!!\n";
+        cout << "Failed to find the email!\n";
 }
 
 void inorder(AVLNode *t)
@@ -47,7 +47,7 @@ void inorder(AVLNode *t)
     inorder(t->LeftChild);
     if (searchData == t->Name)
     {
-        cout << "Email found!!!\n";
+        cout << "Email has been successfully found\n";
         emailFound = true;
         return;
     }
@@ -55,10 +55,10 @@ void inorder(AVLNode *t)
     inorder(t->RightChild);
 }
 
-int main()
+void avlTree(string emailSize)
 {
     ifstream CheckFile; //ifstream checks for file existence
-    char inputFileName[] = "test100.txt";
+    string inputFileName = "email_"+ emailSize + ".txt";
     CheckFile.open(inputFileName); //attempts to open read file, and tests for existence
     auto start = chrono::system_clock::now();
     if (!CheckFile)
@@ -80,7 +80,7 @@ int main()
 
     string data;
     cout << "\nLoading Search Data:\n";
-    CheckFile.open("test10found.txt");
+    CheckFile.open("Email Found_" + emailSize+".txt");
     for (int i = 0; i < 10; i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
@@ -91,6 +91,20 @@ int main()
         auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
         cout << "Total Search Time: " << microseconds << " microseconds\n\n";
     }
+    CheckFile.close();
+
+    CheckFile.open("Email Not Found_" + emailSize+".txt");
+    for (int i = 0; i < 10; i++)
+    {
+        auto start = std::chrono::high_resolution_clock::now();
+        getline(CheckFile, data);
+        cout << "Searching for \"" << data << "\" ...\n";
+        search(data);
+        auto elapsed = std::chrono::high_resolution_clock::now() - start;
+        auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+        cout << "Total Search Time: " << microseconds << " microseconds\n\n";
+    }
+    CheckFile.close();
 }
 
 AVLNode *InputData(ifstream &InFile)

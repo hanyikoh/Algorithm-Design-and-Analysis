@@ -10,11 +10,13 @@
 #include <cstdio>
 #include <string>
 #include "email.cpp"
+#include "avlTree.cpp"
 #include "Priority Queue.cpp"
 
 using namespace std;
 
 void generateEmail();
+void avlTree(string);
 void priorityQueue(vector<string>);
 
 int main()
@@ -70,9 +72,35 @@ int main()
     vectEmail100000.pop_back();
     vectEmail500000.pop_back();
 
-    priorityQueue(vectEmail100);
-    priorityQueue(vectEmail100000);
-    priorityQueue(vectEmail500000);
+    int choice;
+    while (true)
+    {
+        cout << "Please select a algorithm to run the program" << endl;
+        cout << "1. HashTable " << endl;
+        cout << "2. AVL" << endl;
+        cout << "3. Priority Queue" << endl;
+
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            break;
+        case 2:
+            avlTree("100");
+            avlTree("100000");
+            avlTree("500000");
+            break;
+        case 3:
+            priorityQueue(vectEmail100);
+            priorityQueue(vectEmail100000);
+            priorityQueue(vectEmail500000);
+            break;
+        default:
+            cout << "Please select again!" ;
+            break;
+        }
+    };
+
 
     return 0;
 }

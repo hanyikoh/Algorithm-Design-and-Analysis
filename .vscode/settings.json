@@ -8,6 +8,7 @@
         "limits": "cpp",
         "algorithm": "cpp",
         "xstring": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "iosfwd": "cpp"
     }
 }
