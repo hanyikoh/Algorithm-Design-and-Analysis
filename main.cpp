@@ -96,7 +96,7 @@ int main()
             priorityQueue(vectEmail500000);
             break;
         case 4:
-            exit();
+            exit(0);
             break;
         default:
             cout << "Please select again!" ;
