@@ -79,7 +79,7 @@ int main()
         cout << "1. HashTable " << endl;
         cout << "2. AVL" << endl;
         cout << "3. Priority Queue" << endl;
-
+        cout << "4. End" << endl;
         cin >> choice;
         switch (choice)
         {
@@ -94,6 +94,9 @@ int main()
             priorityQueue(vectEmail100);
             priorityQueue(vectEmail100000);
             priorityQueue(vectEmail500000);
+            break;
+        case 4:
+            exit();
             break;
         default:
             cout << "Please select again!" ;

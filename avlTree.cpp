@@ -58,7 +58,7 @@ void inorder(AVLNode *t)
 void avlTree(string emailSize)
 {
     ifstream CheckFile; //ifstream checks for file existence
-    string inputFileName = "email_"+ emailSize + ".txt";
+    string inputFileName = "email_" + emailSize + ".txt";
     CheckFile.open(inputFileName); //attempts to open read file, and tests for existence
     auto start = chrono::system_clock::now();
     if (!CheckFile)
@@ -76,11 +76,11 @@ void avlTree(string emailSize)
     CheckFile.close();
     auto end = chrono::system_clock::now();
     chrono::duration<double> duration = end - start;
-    cout << "Duration for insert: " << duration.count() << "s\n";
+    cout << "Duration for insert " + emailSize + " Emails: " << duration.count() << "s\n";
 
     string data;
     cout << "\nLoading Search Data:\n";
-    CheckFile.open("Email Found_" + emailSize+".txt");
+    CheckFile.open("Email Found_" + emailSize + ".txt");
     for (int i = 0; i < 10; i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
@@ -93,7 +93,7 @@ void avlTree(string emailSize)
     }
     CheckFile.close();
 
-    CheckFile.open("Email Not Found_" + emailSize+".txt");
+    CheckFile.open("Email Not Found_" + emailSize + ".txt");
     for (int i = 0; i < 10; i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
