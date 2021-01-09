@@ -58,9 +58,12 @@ void generateEmail()
     string word2;
     string word3;
     string word4;
+    vector<string> notfVect;
+
     //cout<<"how many email";
     //cin>>numberOfemail;
 
+//----------------------------------------------------------------------------------------
     for (int j = 0; j < 100; j++)
     {
         for (int i = 0; i < s1; i++)
@@ -99,92 +102,7 @@ void generateEmail()
         word4 = "";
     };
     myfile.close();
-
-    myfile.open("email_100000.txt");
-
-    for (int j = 0; j < 100000; j++)
-    {
-        for (int i = 0; i < s1; i++)
-        {
-            word1 += getRandomChar();
-        }
-        email = word1 + ".";
-        //to prevent overlap
-        word1 = "";
-
-        for (int i = 0; i < s2; i++)
-        {
-            word2 += getRandomChar();
-        }
-
-        email = email + word2 + "@";
-
-        //to prevent overlap
-        word2 = "";
-
-        for (int i = 0; i < s3; i++)
-        {
-            word3 += getRandomword();
-        }
-        email = email + word3 + ".";
-        //to prevent overlap
-        word3 = "";
-
-        string arr[3] = {"net", "org", "my"};
-        string word4 = arr[(rand() % 3)];
-
-        email = email + word4;
-        emailVect.push_back(email);
-        myfile << email << endl;
-        //to prevent overlap
-        word4 = "";
-    };
-    myfile.close();
-    
-    myfile.open("email_500000.txt");
-
-    for (int j = 0; j < 500000; j++)
-    {
-        for (int i = 0; i < s1; i++)
-        {
-            word1 += getRandomChar();
-        }
-        email = word1 + ".";
-        //to prevent overlap
-        word1 = "";
-
-        for (int i = 0; i < s2; i++)
-        {
-            word2 += getRandomChar();
-        }
-
-        email = email + word2 + "@";
-
-        //to prevent overlap
-        word2 = "";
-
-        for (int i = 0; i < s3; i++)
-        {
-            word3 += getRandomword();
-        }
-        email = email + word3 + ".";
-        //to prevent overlap
-        word3 = "";
-
-        string arr[3] = {"net", "org", "my"};
-        string word4 = arr[(rand() % 3)];
-
-        email = email + word4;
-        emailVect.push_back(email);
-        myfile << email << endl;
-        //to prevent overlap
-        word4 = "";
-    };
-    myfile.close();
-
-    myfile.open("Email Not Found.txt");
-
-    vector<string> notfVect;
+    myfile.open("Email Not Found_100.txt");
     for (int j = 0; j < 10; j++)
     {
         for (int i = 0; i < s1; i++)
@@ -228,11 +146,209 @@ void generateEmail()
         //to prevent overlap
         word4 = "";
     };
+
+    myfile.close();
+
+    myfile.open("Email Found_100.txt");
+    for (int i = 0; i < 10; i++)
+    {
+        myfile << emailVect[rand() % emailVect.size()] << endl;
+    }
+    myfile.close();
+
+
+//----------------------------------------------------------------------------------------
+
+    myfile.open("email_100000.txt");
+
+    for (int j = 0; j < 100000; j++)
+    {
+        for (int i = 0; i < s1; i++)
+        {
+            word1 += getRandomChar();
+        }
+        email = word1 + ".";
+        //to prevent overlap
+        word1 = "";
+
+        for (int i = 0; i < s2; i++)
+        {
+            word2 += getRandomChar();
+        }
+
+        email = email + word2 + "@";
+
+        //to prevent overlap
+        word2 = "";
+
+        for (int i = 0; i < s3; i++)
+        {
+            word3 += getRandomword();
+        }
+        email = email + word3 + ".";
+        //to prevent overlap
+        word3 = "";
+
+        string arr[3] = {"net", "org", "my"};
+        string word4 = arr[(rand() % 3)];
+
+        email = email + word4;
+        emailVect.push_back(email);
+        myfile << email << endl;
+        //to prevent overlap
+        word4 = "";
+    };
+    myfile.close();
+
+    myfile.open("Email Not Found_100000.txt");
+    for (int j = 0; j < 10; j++)
+    {
+        for (int i = 0; i < s1; i++)
+        {
+            word1 += getRandomChar();
+        }
+        email = word1 + ".";
+        //to prevent overlap
+        word1 = "";
+
+        for (int i = 0; i < s2; i++)
+        {
+            word2 += getRandomChar();
+        }
+
+        email = email + word2 + "@";
+
+        //to prevent overlap
+        word2 = "";
+
+        for (int i = 0; i < s3; i++)
+        {
+            word3 += getRandomword();
+        }
+        email = email + word3 + ".";
+        //to prevent overlap
+        word3 = "";
+
+        string arr[3] = {"net", "org", "my"};
+        string word4 = arr[(rand() % 3)];
+
+        email = email + word4;
+        for (int i = 0; i < emailVect.size(); i++)
+        {
+            if (email == emailVect[i])
+                j--;
+            continue;
+        }
+        notfVect.push_back(email);
+        myfile << email << endl;
+        //to prevent overlap
+        word4 = "";
+    };
+
+    myfile.close();
+
+    myfile.open("Email Found_100000.txt");
+    for (int i = 0; i < 10; i++)
+    {
+        myfile << emailVect[rand() % emailVect.size()] << endl;
+    }
+    myfile.close();
+    
+//------------------------------------------------------------------------------------
+
+    myfile.open("email_500000.txt");
+
+    for (int j = 0; j < 500000; j++)
+    {
+        for (int i = 0; i < s1; i++)
+        {
+            word1 += getRandomChar();
+        }
+        email = word1 + ".";
+        //to prevent overlap
+        word1 = "";
+
+        for (int i = 0; i < s2; i++)
+        {
+            word2 += getRandomChar();
+        }
+
+        email = email + word2 + "@";
+
+        //to prevent overlap
+        word2 = "";
+
+        for (int i = 0; i < s3; i++)
+        {
+            word3 += getRandomword();
+        }
+        email = email + word3 + ".";
+        //to prevent overlap
+        word3 = "";
+
+        string arr[3] = {"net", "org", "my"};
+        string word4 = arr[(rand() % 3)];
+
+        email = email + word4;
+        emailVect.push_back(email);
+        myfile << email << endl;
+        //to prevent overlap
+        word4 = "";
+    };
+    myfile.close();
+
+
+
+    myfile.open("Email Not Found_500000.txt");
+    for (int j = 0; j < 10; j++)
+    {
+        for (int i = 0; i < s1; i++)
+        {
+            word1 += getRandomChar();
+        }
+        email = word1 + ".";
+        //to prevent overlap
+        word1 = "";
+
+        for (int i = 0; i < s2; i++)
+        {
+            word2 += getRandomChar();
+        }
+
+        email = email + word2 + "@";
+
+        //to prevent overlap
+        word2 = "";
+
+        for (int i = 0; i < s3; i++)
+        {
+            word3 += getRandomword();
+        }
+        email = email + word3 + ".";
+        //to prevent overlap
+        word3 = "";
+
+        string arr[3] = {"net", "org", "my"};
+        string word4 = arr[(rand() % 3)];
+
+        email = email + word4;
+        for (int i = 0; i < emailVect.size(); i++)
+        {
+            if (email == emailVect[i])
+                j--;
+            continue;
+        }
+        notfVect.push_back(email);
+        myfile << email << endl;
+        //to prevent overlap
+        word4 = "";
+    };
+
     myfile.close();
 
     //}
-    myfile.open("Email Found.txt");
-    for (int i = 0; i < 50; i++)
+    myfile.open("Email Found_500000.txt");
+    for (int i = 0; i < 10; i++)
     {
         myfile << emailVect[rand() % emailVect.size()] << endl;
     }
