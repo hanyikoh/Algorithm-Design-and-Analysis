@@ -90,37 +90,12 @@ public:
     heapify_enqueue(A.size() - 1); // start at last element.
   }
 
-  // T dequeue()
-  // {
-  //   T removed_element = A[0];
-  //   A[0] = A[A.size() - 1]; // copy last element to root.
-  //   A.pop_back();           // remove last element.
-  //   for (int i = 0; i < A.size(); i++)
-  //     cout << A[i] << " ";
-  //   cout << endl;
-  //   heapify_dequeue(0); // start at root.
-  //   return removed_element;
-  // }
-
-  // void dequeue()
-  // {
-  //   T removed_element = A[0];
-  //   A[0] = A[A.size() - 1]; // copy last element to root.
-  //   //swap(A[0], A[A.size() - 1]);
-  //   A.pop_back();       // remove last element.
-  //   heapify_dequeue(0); // start at root.
-  //   //return removed_element;
-  // }
-
   T dequeue()
   {
     T removed_element = A[0];
-    A[0] = A[A.size() - 1]; // copy last element to root.
-    //swap(A[0], A[A.size() - 1]);
-    A.pop_back();       // remove last element.
-    heapify_dequeue(0); // start at root.
-    // cout << endl
-    //      << "FIRST :" << A[0] << endl;
+    A[0] = A[A.size() - 1];
+    A.pop_back();
+    heapify_dequeue(0);
     return removed_element;
   }
 
@@ -145,7 +120,7 @@ void priorityQueue(vector<string> A)
   int n = A.size();
   PriorityQueue<string> pq;
   // chrono::duration<double> duration;
-  auto insetStart = chrono::system_clock::now();
+  auto insetStart = chrono::high_resolution_clock::now();
   for (int i = 0; i < n; i++)
   {
     // cout << A.at(i) << "\t: ";
@@ -153,11 +128,11 @@ void priorityQueue(vector<string> A)
     // duration = duration + ( end - start );
     //durationVect.push_back(duration);
   }
-  auto insetEnd = chrono::system_clock::now();
+  auto insetEnd = chrono::high_resolution_clock::now();
   double nanotime_insertTaken = chrono::duration_cast<chrono::nanoseconds>(insetEnd - insetStart).count();
   double millitime_insertTaken = chrono::duration_cast<chrono::milliseconds>(insetEnd - insetStart).count();
 
-  auto dequeueStart = chrono::system_clock::now();
+  auto dequeueStart = chrono::high_resolution_clock::now();
   vector<string> dequequedList;
 
   for (int i = 0; i < n * 0.1; i++)
@@ -172,7 +147,7 @@ void priorityQueue(vector<string> A)
     // pq.dequeue();
   }
 
-  auto dequeueEnd = chrono::system_clock::now();
+  auto dequeueEnd = chrono::high_resolution_clock::now();
   double nanotime_dequeueTaken = chrono::duration_cast<chrono::nanoseconds>(dequeueEnd - dequeueStart).count();
   double millitime_dequeueTaken = chrono::duration_cast<chrono::milliseconds>(dequeueEnd - dequeueStart).count();
   //nanotime_insertTaken *= 1e-9;
