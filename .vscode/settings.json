@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.js": "javascriptreact",
+        "vector": "cpp",
+        "chrono": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "limits": "cpp",
+        "algorithm": "cpp",
+        "xstring": "cpp",
+        "istream": "cpp"
+    }
+}

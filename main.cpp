@@ -74,6 +74,5 @@ int main()
     priorityQueue(vectEmail100000);
     priorityQueue(vectEmail500000);
 
-
     return 0;
 }

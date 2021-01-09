@@ -28,28 +28,32 @@ class PriorityQueue
 
     // parent
     int parent_index = (index - 1) / 2;
-    string temp;
-    bool tag = false;
+    // string temp;
+    // bool tag = false;
 
-    for (int i = 0; i < A[index].length(); i++)
-    {
-      if ((A[index][i] - '0') > (A[parent_index][i] - '0'))
-      {
-        //swap(A[index], A[parent_index]);
-        temp = A[index];
-        A[index] = A[parent_index];
-        A[parent_index] = temp;
-      }
-      if ((A[index][i] - '0') < (A[parent_index][i] - '0'))
-      {
-        break;
-      }
-    }
+    // for (int i = 0; i < A[index].length(); i++)
+    // {
+    //   if ((A[index][i] - '0') > (A[parent_index][i] - '0'))
+    //   {
+    //     //swap(A[index], A[parent_index]);
+    //     temp = A[index];
+    //     A[index] = A[parent_index];
+    //     A[parent_index] = temp;
+    //   }
+    //   if ((A[index][i] - '0') < (A[parent_index][i] - '0'))
+    //   {
+    //     break;
+    //   }
+    // }
 
+    if (A[index] > A[parent_index])
+      swap(A[index], A[parent_index]);
+    // swap if parent is smaller
+    heapify_enqueue(parent_index);
     //if(A[index].compare(A[parent_index]) > 0 )
     // swap if parent is smaller
     //    swap(A[index], A[parent_index]);
-    heapify_enqueue(parent_index);
+    // heapify_enqueue(parent_index);
     // recursion of the function
   }
 
@@ -64,25 +68,13 @@ class PriorityQueue
 
     // compare and find the greatest child
     //make sure the size of index is always smaller than the size of tree
-    for (int i = 0; i < A[index].length(); i++)
-    {
-      if (left < A.size() && ((A[left][i] - '0') > (A[index][i] - '0')))
-      {
-        maxValue = left;
-        break;
-      }
-    }
+    if (left < A.size() && A[left] > A[index])
+      maxValue = left;
+    else
+      maxValue = index;
 
-    maxValue = index;
-
-    for (int i = 0; i < A[index].length(); i++)
-    {
-      if (right < A.size() && ((A[right][i] - '0') > (A[index][i] - '0')))
-      {
-        maxValue = right;
-        break;
-      }
-    }
+    if (right < A.size() && A[left] > A[index])
+      maxValue = right;
 
     if (maxValue != index)
     {
@@ -110,14 +102,26 @@ public:
   //   return removed_element;
   // }
 
-  void dequeue()
+  // void dequeue()
+  // {
+  //   T removed_element = A[0];
+  //   A[0] = A[A.size() - 1]; // copy last element to root.
+  //   //swap(A[0], A[A.size() - 1]);
+  //   A.pop_back();       // remove last element.
+  //   heapify_dequeue(0); // start at root.
+  //   //return removed_element;
+  // }
+
+  T dequeue()
   {
     T removed_element = A[0];
     A[0] = A[A.size() - 1]; // copy last element to root.
     //swap(A[0], A[A.size() - 1]);
     A.pop_back();       // remove last element.
     heapify_dequeue(0); // start at root.
-    //return removed_element;
+    // cout << endl
+    //      << "FIRST :" << A[0] << endl;
+    return removed_element;
   }
 
   int size()
@@ -154,11 +158,20 @@ void priorityQueue(vector<string> A)
   double millitime_insertTaken = chrono::duration_cast<chrono::milliseconds>(insetEnd - insetStart).count();
 
   auto dequeueStart = chrono::system_clock::now();
+  vector<string> dequequedList;
+
   for (int i = 0; i < n * 0.1; i++)
   {
-    // cout << pq.dequeue() << "\t: ";
-    pq.dequeue();
+    dequequedList.push_back(pq.dequeue());
+    // pq.dequeue();
   }
+  cout << "First 10 Dequequed Elements " << endl;
+  for (int i = 0; i < 10; i++)
+  {
+    cout << dequequedList[i] << endl;
+    // pq.dequeue();
+  }
+
   auto dequeueEnd = chrono::system_clock::now();
   double nanotime_dequeueTaken = chrono::duration_cast<chrono::nanoseconds>(dequeueEnd - dequeueStart).count();
   double millitime_dequeueTaken = chrono::duration_cast<chrono::milliseconds>(dequeueEnd - dequeueStart).count();
