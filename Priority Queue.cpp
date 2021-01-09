@@ -4,22 +4,15 @@
 #include <chrono>  // C++11
 #include <cstdlib> // This line is required in Code::Blocks 13.12.
 #include <ctime>
-
+#include <string>
+#include <fstream>
 using namespace std;
-
-template <typename T>
-
-void printArray(vector<T> A, int n)
-{
-  for (int i = 0; i < n; i++)
-    cout << A.at(i) << " ";
-  cout << endl;
-}
 
 template <typename T>
 class PriorityQueue
 {
   vector<T> A;
+  bool emailFound = false;
 
   void heapify_enqueue(int index)
   {                 // used in enqueue.
@@ -28,33 +21,10 @@ class PriorityQueue
 
     // parent
     int parent_index = (index - 1) / 2;
-    // string temp;
-    // bool tag = false;
 
-    // for (int i = 0; i < A[index].length(); i++)
-    // {
-    //   if ((A[index][i] - '0') > (A[parent_index][i] - '0'))
-    //   {
-    //     //swap(A[index], A[parent_index]);
-    //     temp = A[index];
-    //     A[index] = A[parent_index];
-    //     A[parent_index] = temp;
-    //   }
-    //   if ((A[index][i] - '0') < (A[parent_index][i] - '0'))
-    //   {
-    //     break;
-    //   }
-    // }
-
-    if (A[index] > A[parent_index])
+    if (A[index].compare(A[parent_index]) > 0)
       swap(A[index], A[parent_index]);
-    // swap if parent is smaller
     heapify_enqueue(parent_index);
-    //if(A[index].compare(A[parent_index]) > 0 )
-    // swap if parent is smaller
-    //    swap(A[index], A[parent_index]);
-    // heapify_enqueue(parent_index);
-    // recursion of the function
   }
 
   void heapify_dequeue(int index)
@@ -66,14 +36,12 @@ class PriorityQueue
     // right child index
     int right = (2 * index) + 2;
 
-    // compare and find the greatest child
-    //make sure the size of index is always smaller than the size of tree
-    if (left < A.size() && A[left] > A[index])
+    if (left < A.size() && A[left].compare(A[index]) > 0)
       maxValue = left;
     else
       maxValue = index;
 
-    if (right < A.size() && A[left] > A[index])
+    if (right < A.size() && A[right].compare(A[index]) > 0)
       maxValue = right;
 
     if (maxValue != index)
@@ -104,11 +72,31 @@ public:
     return A.size();
   }
 
-  void print()
+  // void print()
+  // {
+  //   // for (int i = 0; i < 10; i++)
+  //   //   cout << A[i] << " " << endl;
+  //   // cout << endl;
+  //   cout << "HEI" << endl;
+  //   outfile.open("TESTXIA.txt");
+  //   for (int i = 0; i < A.size(); i++)
+  //     outfile << A[i] << endl;
+  //   outfile.close();
+  // }
+
+  void search(string data)
   {
+    searchData = data;
     for (int i = 0; i < A.size(); i++)
-      cout << A[i] << " " << endl;
-    cout << endl;
+    {
+      if (A[i] == searchData)
+      {
+        cout << searchData << " FOUND AT INDEX " + to_string(i) << endl;
+        return;
+      }
+    }
+    cout << "EMAIL NOT FOUND" << endl;
+    return;
   }
 };
 
@@ -116,7 +104,6 @@ public:
 void priorityQueue(vector<string> A)
 {
   vector<double> durationVect;
-  double sum_of_durations;
   int n = A.size();
   PriorityQueue<string> pq;
   // chrono::duration<double> duration;
@@ -146,7 +133,7 @@ void priorityQueue(vector<string> A)
     cout << dequequedList[i] << endl;
     // pq.dequeue();
   }
-
+  cout << endl;
   auto dequeueEnd = chrono::high_resolution_clock::now();
   double nanotime_dequeueTaken = chrono::duration_cast<chrono::nanoseconds>(dequeueEnd - dequeueStart).count();
   double millitime_dequeueTaken = chrono::duration_cast<chrono::milliseconds>(dequeueEnd - dequeueStart).count();
@@ -154,6 +141,29 @@ void priorityQueue(vector<string> A)
 
   // for (std::vector<double>::iterator it = durationVect.begin(); it != durationVect.end(); ++it)
   //   sum_of_durations += *it;
+  ifstream searchFile;
+  string line;
+  vector<string> searchEmailVect;
+  searchFile.open("Email Found_100.txt");
+  if (searchFile.is_open()) //if the file is open
+  {
+    while (!searchFile.eof()) //while the end of file is NOT reached
+    {
+      getline(searchFile, line);       //get one line from the file
+      searchEmailVect.push_back(line); //output loop statement
+    }
+    searchFile.close(); //closing the file
+  }
+
+  auto searchStart = chrono::high_resolution_clock::now();
+  for (int i = 0; i < 10; i++)
+  {
+    pq.search(searchEmailVect[i]);
+  }
+
+  auto searchEnd = chrono::high_resolution_clock::now();
+  double nanotime_searchTaken = chrono::duration_cast<chrono::nanoseconds>(searchEnd - searchStart).count();
+  double millitime_searchTaken = chrono::duration_cast<chrono::milliseconds>(searchEnd - searchStart).count();
 
   cout << "\n";
   cout << "Total Nanoseconds for Inserting " << n << " Emails: " << nanotime_insertTaken << " nanoseconds";
@@ -163,6 +173,15 @@ void priorityQueue(vector<string> A)
   cout << "Total Milliseconds for Inserting " << n << " Email: " << millitime_insertTaken << " milliseconds";
   cout << "\n";
   cout << "Average Milliseconds for Inserting " << n << " Email: " << millitime_insertTaken / n << " milliseconds";
+  cout << "\n";
+  cout << "\n";
+  cout << "Total Nanoseconds for Searching " << n << " Email: " << nanotime_searchTaken << " nanoseconds";
+  cout << "\n";
+  cout << "Average Nanoseconds for Searching " << n << " Email: " << nanotime_searchTaken / 10 << " nanoseconds";
+  cout << "\n";
+  cout << "Total Milliseconds for Searching " << n << " Email: " << millitime_searchTaken << " milliseconds";
+  cout << "\n";
+  cout << "Average Milliseconds for Searching " << n << " Email: " << millitime_searchTaken / 10 << " milliseconds";
   cout << "\n";
 
   cout << "\n";
