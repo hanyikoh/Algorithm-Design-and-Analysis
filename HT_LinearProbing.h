@@ -4,73 +4,49 @@
 #include <cctype>
 #include <cstring>
 #include <string>
+#include <vector>
 #include <iostream>
 
 using namespace std;
 
-class Email{
-
-public:
-   int rollno;
-   string name;
-   Email(){};
-
-   int getRollno(){
-       return rollno;
-   }
-
-   string getName(){
-       return name;
-   }
-};
-
-
 // Hash Table Linear Probing
 class HT_LinearProbing{
-   Email **arr;  //Pointer to pointer to Email variable
-   int size;    //Hash Table Size
+   vector<string>table;
    int count;   //Count number of insertion
 
 public:
    HT_LinearProbing(int s){
       count = 0;
-      size = s;
-      arr = new Email *[size];
-
-      for (int i = 0; i < size; i++)
-         arr[i] = nullptr;
+      table.resize(s); // resize vector to support size elements.
+      fill(table.begin(), table.end(), "");
    }
 
    int getSize(){
-        return size;
+        return table.size();
    }
 
    //Hash function
    int hashfunction(int n){
-      return n % size;
+      return n % table.size();
    };
 
    //Insertion
-   void insertItem(int key, string value){
-      if (count == size){
+   void insertItem(int key, string item){
+      if (count == table.size()){
          cout << " Hash full";
          return;
       }
 
       int hashIndex = hashfunction(key);
-
-      while (arr[hashIndex] != nullptr){
-         hashIndex = (hashIndex + 1) % size;
+      while (table[hashIndex] != ""){
+         hashIndex = (hashIndex + 1) % table.size();
       }
-      arr[hashIndex] = new Email();
-      arr[hashIndex]->rollno = key;
-      arr[hashIndex]->name = value;
+      table[hashIndex] = item;
       count++;
    };
 
    //Retrieval
-   string retrieve (int key)
-   {
+   string searchItem (int key, string item){
       if (count == 0){
          return "Empty";
       }
@@ -79,13 +55,12 @@ public:
       int temp = hashIndex; //store original hash key inside temp
 
       while (true){
-         if (arr[hashIndex] == nullptr){
-            hashIndex = (hashIndex + 1) % size;
+         if (table[hashIndex] == ""){
+            hashIndex = (hashIndex + 1) % table.size();
          }
-         else if (arr[hashIndex]->rollno != key){
-            hashIndex = (hashIndex + 1) % size;
-         }
-         else
+         else if (table[hashIndex] != item){
+            hashIndex = (hashIndex + 1) % table.size();
+         } else
             break;
 
          if (hashIndex == temp){ //Not found after going through the entire table
@@ -94,79 +69,33 @@ public:
          }
       }
 
-      if (temp == -1){
-         return "Not Found";
+      if (temp != -1 && (table[hashIndex] == item)){
+         return item + " found at Key " + to_string(hashIndex);
       }
       else{
-         return arr[hashIndex]->name;
+         return item + " not found";
+
       }
    }
 
-   //Delete
-   void deleteItem(int key){
-      if (count == 0){
-         cout << "Hash is empty";
-      }
-
-      int hashIndex = hashfunction(key);
-      int temp = hashIndex;
-      while (true){
-         if (arr[hashIndex] == nullptr){
-            hashIndex = (hashIndex + 1) % size;
-         }
-
-         else if (arr[hashIndex]->rollno != key){
-            hashIndex = (hashIndex + 1) % size;
-         }
-         else
-            break;
-
-         if (hashIndex == temp){
-            temp = -1;
-            break;
-         }
-      }
-
-      if (temp == -1){
-         cout << "Not Found";
-      }
-      else{
-         delete arr[hashIndex];
-         arr[hashIndex] = nullptr;
-         count--;
+   void displayAll(){
+      for (int i = 0; i < table.size(); i++){
+         if (table[i] != "")
+            cout << "HASH_TABLE[" << i << "]: value => " << table[i] << endl;
       }
    }
 
-   /*
-   friend ostream& operator<< (ostream& os, HT_LinearProbing & ht) {
-        for (int i = 0; i < ht.getSize(); i++)
-        os << "HASH_TABLE[" << i << "]: key => " << arr[i]->rollno << " value => " << arr[i]->name << endl;
-        return os;
-    }*/
-
-
-   void displayAll()
-   {
-      for (int i = 0; i < size; i++)
-      {
-         if (arr[i] != nullptr)
-         {
-            cout << "HASH_TABLE[" << i << "]: key => " << arr[i]->rollno << " value => " << arr[i]->name << endl;
-         }
-      }
-   }
-
-   /*
+/*
     ~MyHashTable(){
        for(int i = 0; i < size; i++){
           if(arr[i] != nullptr){
-             cout <<"deleting key = > " << arr[i]->rollno << " value = >" << arr[i]->name << endl;
              delete arr[i];
              arr[i] = nullptr;
           }
        }
     }
-   */
+*/
+
 };
 
 #endif // HT_LINEARPROBING_H

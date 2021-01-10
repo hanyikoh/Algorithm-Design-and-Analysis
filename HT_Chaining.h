@@ -40,7 +40,7 @@ class HT_Chaining {
             table[location].insertFront(newItem);
     }
 
-    bool retrieve (int key, string & targetItem) {
+    bool searchItem (int key, string & targetItem) {
         int location = hashfunction(key);
         if(!table[location].find(targetItem))
             return false;
