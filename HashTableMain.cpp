@@ -22,6 +22,7 @@ int main()
    fstream myfile1;
    vector<string> vectEmail;
    vector<string> vectEmailFound;
+   vector<string> vectEmailNotFound;
    string line;
 
   /********** ********** **********
@@ -30,6 +31,8 @@ int main()
 
    int fileChoice;
    string fileName;
+   string emailFound;
+   string emailNotFound;
    cout
    << "Choose email file\n"
    << "1. email_100.txt\n"
@@ -40,12 +43,18 @@ int main()
 
    if (fileChoice == 1){
     fileName = "email_100.txt";
+    emailFound = "Email Found_100.txt";
+    emailNotFound= "Email Not Found_100.txt";
    } else
    if (fileChoice == 2){
     fileName = "email_100000.txt";
+    emailFound = "Email Found_100000.txt";
+    emailNotFound= "Email Not Found_100000.txt";
    }else
    if (fileChoice == 3){
     fileName = "email_500000.txt";
+    emailFound = "Email Found_500000.txt";
+    emailNotFound= "Email Not Found_500000.txt";
    }else{
     cout << "error";
     return 0;
@@ -54,6 +63,11 @@ int main()
   /********** ********** **********
    * io file
    ********** ********** **********/
+
+   /*
+    * Email Generator File
+    */
+
    myfile1.open(fileName); //opening the file.
    if (myfile1.is_open())         //if the file is open
    {
@@ -71,6 +85,44 @@ int main()
    }
    vectEmail.pop_back();
 
+   /*
+    * Email Found File
+    */
+
+   myfile1.open(emailFound);
+   if (myfile1.is_open()) //if the file is open
+   {
+      while (!myfile1.eof()) //while the end of file is NOT reached
+      {
+         getline(myfile1, line);         //get one line from the file
+         vectEmailFound.push_back(line); //output loop statement
+      }
+      myfile1.close(); //closing the file
+   }
+   else
+      cout << "Unable to open file found";
+
+   vectEmailFound.pop_back();
+
+   /*
+    * Email Not Found File
+    */
+
+   myfile1.open(emailNotFound);
+   if (myfile1.is_open()) //if the file is open
+   {
+      while (!myfile1.eof()) //while the end of file is NOT reached
+      {
+         getline(myfile1, line);         //get one line from the file
+         vectEmailNotFound.push_back(line); //output loop statement
+      }
+      myfile1.close(); //closing the file
+   }
+   else
+      cout << "Unable to open file found";
+
+   vectEmailNotFound.pop_back();
+
 
 
   /********** ********** **********
@@ -81,9 +133,7 @@ int main()
    const float HTLBDATASIZE = 1.5;
 
    // Declaration
-   cout << "HashTable Chaining Method\n\n";
    HT_Chaining htc(vectEmail.size() * HTCDATASIZE);
-   cout << "\n\n\nHashTable Linear Probing Method\n\n";
    HT_LinearProbing htlp(vectEmail.size() * HTLBDATASIZE);
 
 
@@ -120,68 +170,20 @@ int main()
    double millitime_htlpInsertTaken = chrono::duration_cast<chrono::milliseconds>(insetEnd - insetStart).count();
 
    //Display fileChoice that is email_100.txt
-   /*
+   /* */
    if(fileChoice == 1){
+      cout << "HashTable Chaining Method\n\n";
       cout << htc << endl << endl;
+      cout << "HashTable Linear Probing Method\n\n";
       htlp.displayAll();
       cout << endl << endl;
-   }*/
+   }/* */
 
 
   /********** ********** **********
    * calculate hash table searching
    * && retrieval time
    ********** ********** **********/
-
-   fileChoice = 0;
-   fileName = " ";
-   cout
-   << "Choose email file\n"
-   << "1. Email Found.txt\n"
-   << "2. Email Found_100.txt\n"
-   << "3. Email Found_100000.txt\n"
-   << "4. Email Found_500000.txt\n"
-   << "5. Email Not Found.txt\n"
-   << "6. Email Not Found_100.txt\n"
-   << "7. Email Not Found_100000.txt\n"
-   << "8. Email Not Found_500000.txt\n";
-   cin >> fileChoice;
-   cout << endl;
-
-   switch(fileChoice){
-      case 1:fileName = "Email Found.txt";
-              break;
-      case 2:fileName = "Email Found_100.txt";
-              break;
-      case 3:fileName = "Email Found_100000.txt";
-              break;
-      case 4:fileName = "Email Found_500000.txt";
-              break;
-      case 5:fileName = "Email Not Found.txt";
-              break;
-      case 6:fileName = "Email Not Found_100.txt";
-              break;
-      case 7:fileName = "Email Not Found_100000.txt";
-              break;
-      case 8:fileName = "Email Not Found_500000.txt";
-              break;
-      default: cout <<"\n\nERROR\n\n";
-   }
-
-   myfile1.open("Email Found.txt");
-   if (myfile1.is_open()) //if the file is open
-   {
-      while (!myfile1.eof()) //while the end of file is NOT reached
-      {
-         getline(myfile1, line);         //get one line from the file
-         vectEmailFound.push_back(line); //output loop statement
-      }
-      myfile1.close(); //closing the file
-   }
-   else
-      cout << "Unable to open file found";
-
-   vectEmailFound.pop_back();
 
    cout << "VECT FOUND SIZE: " << vectEmailFound.size() << endl;
 
@@ -248,7 +250,7 @@ void displayData(string hashtableMethod, vector<string> vectEmail,
    cout << "Total Milliseconds for Searching " << vectEmail.size() << " Email: " << millitime_searchTaken << " milliseconds";
    cout << "\n";
    cout << "Average Milliseconds for Searching " << vectEmail.size() << " Email: " << millitime_searchTaken / vectEmail.size() << " milliseconds";
-   cout << "\n";
+   cout << "\n\n\n";
 }
 
 
