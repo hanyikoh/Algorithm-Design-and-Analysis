@@ -52,6 +52,11 @@ class PriorityQueue
   }
 
 public:
+  string randomEmail()
+  {
+    return A[rand() % A.size()];
+  }
+
   void enqueue(T element)
   {
     A.push_back(element);
@@ -95,7 +100,7 @@ public:
         return;
       }
     }
-    cout << "EMAIL NOT FOUND" << endl;
+    cout << "EMAIL: " << searchData << " CANNOT NOT BE FOUND" << endl;
     return;
   }
 };
@@ -107,6 +112,8 @@ void priorityQueue(vector<string> A)
   int n = A.size();
   PriorityQueue<string> pq;
   // chrono::duration<double> duration;
+  cout << "---------Enqueuing the emails into Heap---------" << endl
+       << endl;
   auto insetStart = chrono::high_resolution_clock::now();
   for (int i = 0; i < n; i++)
   {
@@ -119,53 +126,7 @@ void priorityQueue(vector<string> A)
   double nanotime_insertTaken = chrono::duration_cast<chrono::nanoseconds>(insetEnd - insetStart).count();
   double millitime_insertTaken = chrono::duration_cast<chrono::milliseconds>(insetEnd - insetStart).count();
 
-  auto dequeueStart = chrono::high_resolution_clock::now();
-  vector<string> dequequedList;
-
-  for (int i = 0; i < n * 0.1; i++)
-  {
-    dequequedList.push_back(pq.dequeue());
-    // pq.dequeue();
-  }
-  cout << "First 10 Dequequed Elements " << endl;
-  for (int i = 0; i < 10; i++)
-  {
-    cout << dequequedList[i] << endl;
-    // pq.dequeue();
-  }
-  cout << endl;
-  auto dequeueEnd = chrono::high_resolution_clock::now();
-  double nanotime_dequeueTaken = chrono::duration_cast<chrono::nanoseconds>(dequeueEnd - dequeueStart).count();
-  double millitime_dequeueTaken = chrono::duration_cast<chrono::milliseconds>(dequeueEnd - dequeueStart).count();
-  //nanotime_insertTaken *= 1e-9;
-
-  // for (std::vector<double>::iterator it = durationVect.begin(); it != durationVect.end(); ++it)
-  //   sum_of_durations += *it;
-  ifstream searchFile;
-  string line;
-  vector<string> searchEmailVect;
-  searchFile.open("Email Found_100.txt");
-  if (searchFile.is_open()) //if the file is open
-  {
-    while (!searchFile.eof()) //while the end of file is NOT reached
-    {
-      getline(searchFile, line);       //get one line from the file
-      searchEmailVect.push_back(line); //output loop statement
-    }
-    searchFile.close(); //closing the file
-  }
-
-  auto searchStart = chrono::high_resolution_clock::now();
-  for (int i = 0; i < 10; i++)
-  {
-    pq.search(searchEmailVect[i]);
-  }
-
-  auto searchEnd = chrono::high_resolution_clock::now();
-  double nanotime_searchTaken = chrono::duration_cast<chrono::nanoseconds>(searchEnd - searchStart).count();
-  double millitime_searchTaken = chrono::duration_cast<chrono::milliseconds>(searchEnd - searchStart).count();
-
-  cout << "\n";
+  cout << "\nEnqueue done belows are the time spent details: \n";
   cout << "Total Nanoseconds for Inserting " << n << " Emails: " << nanotime_insertTaken << " nanoseconds";
   cout << "\n";
   cout << "Average Nanoseconds for Inserting " << n << " Email: " << nanotime_insertTaken / n << " nanoseconds";
@@ -173,8 +134,92 @@ void priorityQueue(vector<string> A)
   cout << "Total Milliseconds for Inserting " << n << " Email: " << millitime_insertTaken << " milliseconds";
   cout << "\n";
   cout << "Average Milliseconds for Inserting " << n << " Email: " << millitime_insertTaken / n << " milliseconds";
+  cout << "\n\n";
+
+  vector<string> dequequedList;
+  auto dequeueStart = chrono::high_resolution_clock::now();
+  cout << "---------Dequeuing the 10% Email from Heap---------" << endl
+       << endl;
+  for (int i = 0; i < n * 0.1; i++)
+  {
+    dequequedList.push_back(pq.dequeue());
+    // pq.dequeue();
+  }
+  auto dequeueEnd = chrono::high_resolution_clock::now();
+  double nanotime_dequeueTaken = chrono::duration_cast<chrono::nanoseconds>(dequeueEnd - dequeueStart).count();
+  double millitime_dequeueTaken = chrono::duration_cast<chrono::milliseconds>(dequeueEnd - dequeueStart).count();
+  cout << "First 10 Dequequed Elements " << endl;
+  for (int i = 0; i < 10; i++)
+  {
+    cout << dequequedList[i] << endl;
+    // pq.dequeue();
+  }
+  cout << "\nDequeue done belows are the time spent details: \n";
+  cout << "Total Nanoseconds for Dequeue " << n * 0.1 << " Email: " << nanotime_dequeueTaken << " nanoseconds";
+  cout << "\n";
+  cout << "Average Nanoseconds for Dequeue " << n * 0.1<< " Email: " << nanotime_dequeueTaken / n << " nanoseconds";
+  cout << "\n";
+  cout << "Total Milliseconds for Dequeue " << n * 0.1<< " Email: " << millitime_dequeueTaken << " milliseconds";
+  cout << "\n";
+  cout << "Average Milliseconds for Dequeue " << n * 0.1<< " Email: " << millitime_dequeueTaken / n << " milliseconds";
+  cout << "\n";
+  //nanotime_insertTaken *= 1e-9;
+
+  // for (std::vector<double>::iterator it = durationVect.begin(); it != durationVect.end(); ++it)
+  //   sum_of_durations += *it;
+  ifstream searchFile;
+  string line;
+  vector<string> searchEmailVect;
+  vector<string> searchNoEmailVect;
+
+  for (int i = 0; i < 10; i++)
+  {
+    searchEmailVect.push_back(pq.randomEmail());
+  }
+
+  searchFile.open("Email Not Found_" + to_string(n) + ".txt");
+  if (searchFile.is_open()) //if the file is open
+  {
+    while (!searchFile.eof()) //while the end of file is NOT reached
+    {
+      getline(searchFile, line);         //get one line from the file
+      searchNoEmailVect.push_back(line); //output loop statement
+    }
+    searchFile.close(); //closing the file
+  }
+
+  cout << "---------Searching for 10 Emails that can be found---------" << endl
+       << endl;
+  auto searchFoundStart = chrono::high_resolution_clock::now();
+  for (int i = 0; i < 10; i++)
+  {
+    pq.search(searchEmailVect[i]);
+  }
+  auto searchFoundEnd = chrono::high_resolution_clock::now();
+  double nanotime_searchFoundTaken = chrono::duration_cast<chrono::nanoseconds>(searchFoundEnd - searchFoundStart).count();
+  double millitime_searchFoundTaken = chrono::duration_cast<chrono::milliseconds>(searchFoundEnd - searchFoundStart).count();
+  cout << "\nSearching done belows are the time spent details: \n";
+  cout << "Total Nanoseconds for Searching " << n << " Email: " << nanotime_searchFoundTaken << " nanoseconds";
+  cout << "\n";
+  cout << "Average Nanoseconds for Searching " << n << " Email: " << nanotime_searchFoundTaken / 10 << " nanoseconds";
+  cout << "\n";
+  cout << "Total Milliseconds for Searching " << n << " Email: " << millitime_searchFoundTaken << " milliseconds";
+  cout << "\n";
+  cout << "Average Milliseconds for Searching " << n << " Email: " << millitime_searchFoundTaken / 10 << " milliseconds";
   cout << "\n";
   cout << "\n";
+
+  cout << "--------Searching for 10 Emails that can't be found--------" << endl
+       << endl;
+  auto searchStart = chrono::high_resolution_clock::now();
+  for (int i = 0; i < 10; i++)
+  {
+    pq.search(searchNoEmailVect[i]);
+  }
+  auto searchEnd = chrono::high_resolution_clock::now();
+  double nanotime_searchTaken = chrono::duration_cast<chrono::nanoseconds>(searchEnd - searchStart).count();
+  double millitime_searchTaken = chrono::duration_cast<chrono::milliseconds>(searchEnd - searchStart).count();
+  cout << "\nSearching done belows are the time spent details: \n";
   cout << "Total Nanoseconds for Searching " << n << " Email: " << nanotime_searchTaken << " nanoseconds";
   cout << "\n";
   cout << "Average Nanoseconds for Searching " << n << " Email: " << nanotime_searchTaken / 10 << " nanoseconds";
@@ -183,15 +228,6 @@ void priorityQueue(vector<string> A)
   cout << "\n";
   cout << "Average Milliseconds for Searching " << n << " Email: " << millitime_searchTaken / 10 << " milliseconds";
   cout << "\n";
-
-  cout << "\n";
-  cout << "Total Nanoseconds for Dequeue " << n << " Email: " << nanotime_dequeueTaken << " nanoseconds";
-  cout << "\n";
-  cout << "Average Nanoseconds for Dequeue " << n << " Email: " << nanotime_dequeueTaken / n << " nanoseconds";
-  cout << "\n";
-  cout << "Total Milliseconds for Dequeue " << n << " Email: " << millitime_dequeueTaken << " milliseconds";
-  cout << "\n";
-  cout << "Average Milliseconds for Dequeue " << n << " Email: " << millitime_dequeueTaken / n << " milliseconds";
   cout << "\n";
 
   cout << endl;
