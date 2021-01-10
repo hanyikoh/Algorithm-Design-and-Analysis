@@ -102,11 +102,10 @@ int main()
             exit(0);
             break;
         default:
-            cout << "Please select again!" ;
+            cout << "Please select again!";
             break;
         }
     };
-
 
     return 0;
 }
