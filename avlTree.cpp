@@ -71,7 +71,7 @@ void avlTree(string emailSize)
     auto end = chrono::system_clock::now();
     chrono::duration<double> duration = end - start;
     cout << "Duration for insert " + emailSize + " Emails: " << duration.count() << "s\n";
-    int SucAvg,failAvg;
+    int SucAvg, failAvg;
     string data;
     cout << "\nLoading Search Data:\n";
     CheckFile.open("Email Found_" + emailSize + ".txt");
@@ -83,10 +83,8 @@ void avlTree(string emailSize)
         search(data);
         auto elapsed = std::chrono::high_resolution_clock::now() - start;
         auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
-        cout << "Total Search Time: " << microseconds << " microseconds\n\n";
-        SucAvg=SucAvg+microseconds;
+        SucAvg = SucAvg + microseconds;
     }
-
 
     CheckFile.close();
 
@@ -99,12 +97,10 @@ void avlTree(string emailSize)
         search(data);
         auto elapsed = std::chrono::high_resolution_clock::now() - start;
         auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
-        cout << "Total Search Time: " << microseconds << " microseconds\n\n";
-        failAvg=failAvg+microseconds;
-
+        failAvg = failAvg + microseconds;
     }
-    cout << "Total Average Success Search Time: " << SucAvg/10 << " microseconds\n\n";
-    cout << "Total Average Fail Search Time: " << failAvg/10 << " microseconds\n\n";
+    cout << "\n Average Success Search Time: " << SucAvg / 10 << " microseconds\n\n";
+    cout << "\n Average Fail Search Time: " << failAvg / 10 << " microseconds\n\n";
     CheckFile.close();
 }
 
@@ -194,5 +190,3 @@ AVLNode *RightLeft(AVLNode *RotateTop)
     RotateTop->RightChild = LeftLeft(RotateTop->RightChild);
     return RightRight(RotateTop);
 }
-
-
