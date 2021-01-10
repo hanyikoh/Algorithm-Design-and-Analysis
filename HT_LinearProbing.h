@@ -18,11 +18,15 @@ public:
    HT_LinearProbing(int s){
       count = 0;
       table.resize(s); // resize vector to support size elements.
-      fill(table.begin(), table.end(), "");
+      fill(table.begin(), table.end(), "-1");
    }
 
    int getSize(){
         return table.size();
+   }
+
+   int getCount(){
+        return count;
    }
 
    //Hash function
@@ -30,19 +34,30 @@ public:
       return n % table.size();
    };
 
-   //Insertion
-   void insertItem(int key, string item){
-      if (count == table.size()){
-         cout << " Hash full";
-         return;
-      }
+   int hashfunction(string item){
 
-      int hashIndex = hashfunction(key);
-      while (table[hashIndex] != ""){
+      int sum_ascii = item[0] * item[1] * item[2] * item[3] * item[4];
+      /*
+      for (char c : item)
+      {
+         sum_ascii += c;
+      };/* */
+      //cout << sum_ascii << endl;
+      return sum_ascii % table.size();
+   };
+
+   //Insertion
+   void insertItem(string item){
+
+      count++;
+
+      int hashIndex = hashfunction(item);
+      while (table[hashIndex] != "-1"){
          hashIndex = (hashIndex + 1) % table.size();
+         count++;
       }
       table[hashIndex] = item;
-      count++;
+
    };
 
    //Retrieval
@@ -80,7 +95,7 @@ public:
 
    void displayAll(){
       for (int i = 0; i < table.size(); i++){
-         if (table[i] != "")
+         if (table[i] != "-1")
             cout << "HASH_TABLE[" << i << "]: value => " << table[i] << endl;
       }
    }

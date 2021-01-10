@@ -31,27 +31,29 @@ int main()
 
    int fileChoice;
    int findingEmailChoice;
-   string fileName;
+   string emailFile;
    string emailFound;
    string emailNotFound;
    cout
-   << "Choose email file\n"
-   << "1. email_100.txt\n"
+   << "Choose email data size\n"
+   << "1. email_100\n"
    << "2. email_100000\n"
-   << "3. email_500000\n";
+   << "3. email_500000\n"
+   << "Your Choice: ";
    cin >> fileChoice;
    cout << endl;
 
    cout
-   << "\n\nChoose email file\n"
+   << "\n\nChoose type of searching\n"
    << "1. Email Found\n"
-   << "2. Email Not Found\n";
+   << "2. Email Not Found\n"
+   << "Your Choice: ";
    cin >> findingEmailChoice;
    cout << endl;
 
 
    if (fileChoice == 1){
-    fileName = "email_100.txt";
+    emailFile = "email_100.txt";
        if(findingEmailChoice == 1){
            emailFound = "Email Found_100.txt";
        }else
@@ -63,7 +65,7 @@ int main()
        }
    } else
    if (fileChoice == 2){
-    fileName = "email_100000.txt";
+    emailFile = "email_100000.txt";
        if(findingEmailChoice == 1){
            emailFound = "Email Found_100000.txt";
        }else
@@ -75,7 +77,7 @@ int main()
        }
    }else
    if (fileChoice == 3){
-    fileName = "email_500000.txt";
+    emailFile = "email_500000.txt";
        if(findingEmailChoice == 1){
            emailFound = "Email Found_500000.txt";
        }else
@@ -99,7 +101,7 @@ int main()
     */
 
    cout << "Handling iostream...\n";
-   myfile1.open(fileName); //opening the file.
+   myfile1.open(emailFile); //opening the file.
    if (myfile1.is_open())         //if the file is open
    {
       while (!myfile1.eof()) //while the end of file is NOT reached
@@ -144,7 +146,7 @@ int main()
    ********** ********** **********/
 
 
-   cout << "Inserting Hash Table Chaining...\n";
+   cout << "Inserting " << emailFile << " into Hash Table Chaining...\n";
 
    const float HTCDATASIZE = 0.9;
    const float HTLBDATASIZE = 1.5;
@@ -170,19 +172,25 @@ int main()
 
    cout << "Hash Table Chaining Successful\n\n";
 
-   cout << "Inserting Hash Table Linear Probing...\n";
+   cout << "Inserting " << emailFile << " into Hash Table Linear Probing...\n";
 
    // Construct gash table using linear probing method and record the time
    sum_ascii;
    insetStart = chrono::system_clock::now();
+   auto timenow = chrono::system_clock::to_time_t(chrono::system_clock::now());
    for (int i = 0; i < vectEmail.size(); i++)
    {
-      for (char c : vectEmail[i])
-      {
-         sum_ascii += c;
-      };
-      htlp.insertItem(sum_ascii, vectEmail[i]);
+      htlp.insertItem(vectEmail[i]);
       sum_ascii = 0; //clear the sum_ascii
+
+      // To close this function use /* /
+      // To open this function use /* */
+      /* /
+      if(i % 10000 == 0){
+        cout << "Inserting: " << to_string(i) << " Count: " << htlp.getCount() ;
+        timenow = chrono::system_clock::to_time_t(chrono::system_clock::now());
+        cout << " " << ctime(&timenow);
+      }/* */ //Don't change anything in this line
    }
    insetEnd = chrono::system_clock::now();
    double nanotime_htlpInsertTaken = chrono::duration_cast<chrono::nanoseconds>(insetEnd - insetStart).count();
@@ -193,6 +201,7 @@ int main()
    //Display fileChoice that is email_100.txt
    /* */
    if(fileChoice == 1){
+      cout << "\nONLY DISPLAY email_100.txt for VERIFICATION purpose\n";
       cout << "HashTable Chaining Method\n\n";
       cout << htc << endl << endl;
       cout << "HashTable Linear Probing Method\n\n";
