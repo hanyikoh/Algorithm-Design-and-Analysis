@@ -1,3 +1,6 @@
+#ifndef HT_LINEARPROBING_H
+#define HT_LINEARPROBING_H
+
 #include <cctype>
 #include <cstring>
 #include <string>
@@ -5,33 +8,31 @@
 
 using namespace std;
 
-class Email
-{
+class Email{
+
 public:
    int rollno;
    string name;
    Email(){};
 
-   int getRollno()
-   {
+   int getRollno(){
        return rollno;
    }
 
-   string getName()
-   {
+   string getName(){
        return name;
    }
 };
 
-class HT_LinearProbing
-{
+
+// Hash Table Linear Probing
+class HT_LinearProbing{
    Email **arr;  //Pointer to pointer to Email variable
    int size;    //Hash Table Size
-   int count;
+   int count;   //Count number of insertion
 
 public:
-   HT_LinearProbing(int s)
-   {
+   HT_LinearProbing(int s){
       count = 0;
       size = s;
       arr = new Email *[size];
@@ -40,28 +41,25 @@ public:
          arr[i] = nullptr;
    }
 
-   int getSize()
-   {
+   int getSize(){
         return size;
    }
 
    //Hash function
-   int hashfunction(int n)
-   {
+   int hashfunction(int n){
       return n % size;
    };
 
    //Insertion
-   void insertItem(int key, string value)
-   {
-      if (count == size)
-      {
+   void insertItem(int key, string value){
+      if (count == size){
          cout << " Hash full";
          return;
       }
+
       int hashIndex = hashfunction(key);
-      while (arr[hashIndex] != nullptr)
-      {
+
+      while (arr[hashIndex] != nullptr){
          hashIndex = (hashIndex + 1) % size;
       }
       arr[hashIndex] = new Email();
@@ -70,81 +68,69 @@ public:
       count++;
    };
 
-   //Get
+   //Retrieval
    string retrieve (int key)
    {
-      if (count == 0)
-      {
+      if (count == 0){
          return "Empty";
       }
-      int hashIndex = hashfunction(key);
-      int temp = hashIndex;
 
-      while (true)
-      {
-         if (arr[hashIndex] == nullptr)
-         {
+      int hashIndex = hashfunction(key);
+      int temp = hashIndex; //store original hash key inside temp
+
+      while (true){
+         if (arr[hashIndex] == nullptr){
             hashIndex = (hashIndex + 1) % size;
          }
-         else if (arr[hashIndex]->rollno != key)
-         {
+         else if (arr[hashIndex]->rollno != key){
             hashIndex = (hashIndex + 1) % size;
          }
          else
             break;
 
-         if (hashIndex == temp)
-         {
+         if (hashIndex == temp){ //Not found after going through the entire table
             temp = -1;
             break;
          }
       }
 
-      if (temp == -1)
-      {
+      if (temp == -1){
          return "Not Found";
       }
-      else
-      {
+      else{
          return arr[hashIndex]->name;
       }
    }
 
    //Delete
-   void deleteItem(int key)
-   {
-      if (count == 0)
-      {
+   void deleteItem(int key){
+      if (count == 0){
          cout << "Hash is empty";
       }
+
       int hashIndex = hashfunction(key);
       int temp = hashIndex;
-      while (true)
-      {
-         if (arr[hashIndex] == nullptr)
-         {
+      while (true){
+         if (arr[hashIndex] == nullptr){
             hashIndex = (hashIndex + 1) % size;
          }
-         else if (arr[hashIndex]->rollno != key)
-         {
+
+         else if (arr[hashIndex]->rollno != key){
             hashIndex = (hashIndex + 1) % size;
          }
          else
             break;
 
-         if (hashIndex == temp)
-         {
+         if (hashIndex == temp){
             temp = -1;
             break;
          }
       }
 
-      if (temp == -1)
-      {
+      if (temp == -1){
          cout << "Not Found";
       }
-      else
-      {
+      else{
          delete arr[hashIndex];
          arr[hashIndex] = nullptr;
          count--;
@@ -182,3 +168,5 @@ public:
     }
    */
 };
+
+#endif // HT_LINEARPROBING_H

@@ -1,9 +1,12 @@
+#ifndef HT_CHAINING_H
+#define HT_CHAINING_H
+
 #include <cctype>
 #include <cstring>
 #include <string>
 #include <vector>
 #include <iostream>
-#include "LinkedList.cpp"
+#include "LinkedList.h"
 
 using namespace std;
 
@@ -11,10 +14,6 @@ class HT_Chaining {
 
   vector< LinkedList<string> > table; //vector of LinkedList
   int count;
-
-  int hashfunction (int hashitem) { // hash function
-    return hashitem % table.size();
-  }
 
  public:
 
@@ -28,6 +27,10 @@ class HT_Chaining {
         table[i].makeEmpty();
     }
 
+    int hashfunction (int hashitem) { // hash function
+     return hashitem % table.size();
+    }
+
     int size() {
         return table.size();
     }
@@ -37,9 +40,9 @@ class HT_Chaining {
             table[location].insertFront(newItem);
     }
 
-    bool retrieve (int key, string & target) {
+    bool retrieve (int key, string & targetItem) {
         int location = hashfunction(key);
-        if(!table[location].find(target))
+        if(!table[location].find(targetItem))
             return false;
         return true;
     }
@@ -50,3 +53,5 @@ class HT_Chaining {
         return os;
     }
 };
+
+#endif // HT_CHAINING_H
