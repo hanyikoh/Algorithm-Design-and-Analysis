@@ -38,8 +38,9 @@ int main()
         myfile1.close(); //closing the file
     }
     else
-        cout << "Unable to open file";
+        cout << "Unable to open file email_100.txt";
     myfile1.close();
+
     myfile1.open("email_100000.txt"); //opening the file.
     if (myfile1.is_open())            //if the file is open
     {
@@ -51,8 +52,7 @@ int main()
         myfile1.close(); //closing the file
     }
     else
-        cout << "Unable to open file";
-
+        cout << "Unable to open file email_100000.txt";
     myfile1.close();
 
     myfile1.open("email_500000.txt"); //opening the file.
@@ -66,8 +66,11 @@ int main()
         myfile1.close(); //closing the file
     }
     else
-        cout << "Unable to open file";
+        cout << "Unable to open file email_500000.txt";
     myfile1.close();
+
+
+    //To remove last empty line
     vectEmail100.pop_back();
     vectEmail100000.pop_back();
     vectEmail500000.pop_back();

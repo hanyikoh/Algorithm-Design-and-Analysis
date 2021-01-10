@@ -67,12 +67,7 @@ void avlTree(string emailSize)
     else
         cout << "file opend" << endl;
     Root = InputData(CheckFile);
-    // cout << "taversal:\n\n";
-    //    Traversal(head);
-    //cout << endl;
 
-    // system("PAUSE");
-    // return EXIT_SUCCESS;
     CheckFile.close();
     auto end = chrono::system_clock::now();
     chrono::duration<double> duration = end - start;
