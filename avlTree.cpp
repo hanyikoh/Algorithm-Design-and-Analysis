@@ -18,7 +18,6 @@ struct AVLNode
 AVLNode *InputData(ifstream &);
 AVLNode *InsertData(AVLNode *, AVLNode *);
 int FindBalance(AVLNode *);
-void Traversal(AVLNode *);
 AVLNode *LeftLeft(AVLNode *);
 AVLNode *RightRight(AVLNode *);
 AVLNode *LeftRight(AVLNode *);
@@ -72,7 +71,7 @@ void avlTree(string emailSize)
     auto end = chrono::system_clock::now();
     chrono::duration<double> duration = end - start;
     cout << "Duration for insert " + emailSize + " Emails: " << duration.count() << "s\n";
-
+    int SucAvg,failAvg;
     string data;
     cout << "\nLoading Search Data:\n";
     CheckFile.open("Email Found_" + emailSize + ".txt");
@@ -85,7 +84,10 @@ void avlTree(string emailSize)
         auto elapsed = std::chrono::high_resolution_clock::now() - start;
         auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
         cout << "Total Search Time: " << microseconds << " microseconds\n\n";
+        SucAvg=SucAvg+microseconds;
     }
+
+
     CheckFile.close();
 
     CheckFile.open("Email Not Found_" + emailSize + ".txt");
@@ -98,7 +100,11 @@ void avlTree(string emailSize)
         auto elapsed = std::chrono::high_resolution_clock::now() - start;
         auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
         cout << "Total Search Time: " << microseconds << " microseconds\n\n";
+        failAvg=failAvg+microseconds;
+
     }
+    cout << "Total Average Success Search Time: " << SucAvg/10 << " microseconds\n\n";
+    cout << "Total Average Fail Search Time: " << failAvg/10 << " microseconds\n\n";
     CheckFile.close();
 }
 
@@ -189,33 +195,4 @@ AVLNode *RightLeft(AVLNode *RotateTop)
     return RightRight(RotateTop);
 }
 
-void Traversal(AVLNode *Root)
-{
-    AVLNode *temp;
-    if (Root != NULL)
-    {
-        Traversal(Root->LeftChild);        // print left subtree
-        cout << "(" << Root->Name << ", "; // print this node
-        if (Root->LeftChild == NULL)
-            cout << "NULL, ";
 
-        else
-        {
-            temp = Root->LeftChild;
-            cout << temp->Name << ", ";
-        }
-
-        if (Root->RightChild == NULL)
-            cout << "NULL, ";
-        else
-        {
-            temp = Root->RightChild;
-            cout << temp->Name << ", ";
-        }
-
-        int temp1 = (FindBalance(Root->RightChild) - FindBalance(Root->LeftChild));
-        cout << temp1 << ")" << endl;
-        Traversal(Root->RightChild); // print right subtree
-    }
-    return;
-}

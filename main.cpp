@@ -78,7 +78,7 @@ int main()
     int choice;
     while (true)
     {
-        cout << "Please select a algorithm to run the program" << endl;
+        cout << "Please select a algorithm to run the program" << endl << endl;
         cout << "1. HashTable " << endl;
         cout << "2. AVL" << endl;
         cout << "3. Priority Queue" << endl;
